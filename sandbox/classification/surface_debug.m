@@ -1,5 +1,5 @@
-theta0_vals = linspace(-20, 20, 100);
-theta1_vals = linspace(-20, 20, 100);
+theta0_vals = linspace(-40, 20, 100);
+theta1_vals = linspace(-10, 30, 100);
 
 J_vals = zeros(length(theta0_vals), length(theta1_vals));
 

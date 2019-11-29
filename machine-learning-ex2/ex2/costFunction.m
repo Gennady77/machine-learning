@@ -21,14 +21,27 @@ grad = zeros(size(theta));
 %
 
 sumJ = 0;
-for i = m
-  h = sigmoid();
-  sumJ = sumJ + (-y(i) * log())
-  end
+for i = 1:m
+  x = X(i,:);
+  z = x * theta;
+  h = sigmoid(z);
+  sumJ = sumJ + (-y(i) * log(h) - (1-y(i)) * log(1-h));
+end
 
+J = sumJ/m;
 
-
-
+for j = 1:size(theta)
+  sunGrad = 0;
+  for i = 1:m
+    x = X(i,:);
+    z = x * theta;
+    h = sigmoid(z);
+    sunGrad = sunGrad + (h - y(i)) * x(j);
+  endfor
+  
+  grad(j) = sunGrad / m;
+  
+endfor
 
 
 % =============================================================

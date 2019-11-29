@@ -18,43 +18,10 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
-
-    n = size(X, 2);
+    [cost, grad] = computeCostMulti(X, y, theta);
     
-    for j = 1:n
+    theta = theta - alpha * grad;
     
-      hSum = 0;
-      
-      for i = 1:m
-      
-        x = X(i,:);
-        
-        h = hipothesisFunction(x, theta);
-        
-        sSum = (h - y(i)) * x(j);
-        
-        hSum = hSum + sSum;
-        
-      endfor
-      
-      derTheta = 1/m * hSum;
-      
-      if j == 2
-        disp(derTheta);
-      endif
-
-      temp(j) = theta(j) - alpha * derTheta;
-      
-    endfor
-
-    theta = temp;
-
-
-    % ============================================================
-
-    % Save the cost J in every iteration    
-    history(iter) = computeCostMulti(X, y, theta);
-
-end
+    history(iter) = cost;
 
 end

@@ -9,11 +9,13 @@ plot(x(:, 2),y, 'rx');
 
 theta = zeros(2,1);
 
-[theta, history] = gradientDescentMulti(x, y, theta, 1, 10000);
+[theta, history] = gradientDescentMulti(x, y, theta, 0.1, 3000);
 
-#hold on;
+disp(theta);
 
-#plot(x(:,2), hipothesisFunction(x, theta), '-');
+hold on;
 
-plot(1:numel(history), history, '-b', 'LineWidth', 2);
+plot(x(:,2), hipothesisFunction(x, theta), '-');
+
+#plot(1:numel(history), history, '-b', 'LineWidth', 2);
 
