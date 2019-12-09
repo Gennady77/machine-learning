@@ -109,7 +109,7 @@ pause;
 %  code in the sigmoidGradient.m file.
 %
 
-fprintf('\nEvaluating sigmoid gradient...\n')
+fprintf('\nEvaluating sigmoid gradient...\n');
 
 g = sigmoidGradient([-1 -0.5 0 0.5 1]);
 fprintf('Sigmoid gradient evaluated at [-1 -0.5 0 0.5 1]:\n  ');

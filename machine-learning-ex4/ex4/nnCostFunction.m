@@ -64,13 +64,25 @@ Theta2_grad = zeros(size(Theta2));
 
 X = [ones(m, 1), X];
 
-a2 = Theta1 * X'
+z1 = Theta1 * X';
 
+a2 = sigmoid(z1);
 
+a2 = [ones(1, size(a2, 2)); a2];
 
+z2 = Theta2 * a2;
 
+a3 = sigmoid(z2);
 
+costSum = 0;
+for k = 1:num_labels
+  h = a3(k,:)';
+  yi = (y==k)';
+  costSum = costSum + (-yi*log(h) - (1-yi)*log(1-h));
+endfor
 
+regularSum = sum((Theta1(:, 2:end).**2)(:)) + sum((Theta2(:, 2:end).**2)(:));
+J = costSum/m + (lambda*regularSum)/(2*m);
 
 
 
