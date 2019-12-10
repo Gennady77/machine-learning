@@ -83,9 +83,9 @@ J = costSum/m + (lambda*regularSum)/(2*m);
 
 
 
-a_1 = X(1,:)';
+a_1 = X';
 z_2 = Theta1 * a_1;
-a_2 = [1; sigmoid(z_2)(:)];
+a_2 = [ones(1,size(z_2, 2)); sigmoid(z_2)];
 z_3 = Theta2 * a_2;
 a_3 = sigmoid(z_3);
 
@@ -95,8 +95,9 @@ for k = 1:num_labels
   d_3(k) = a_3(k) - y_k;
 endfor
 
-tre = Theta2' * d_3;
-d_2 = tre .* z_2;
+d_2 = (Theta2(:, 2:end))' * d_3 .* sigmoidGradient(z_2);
+
+delta_1 = d_2 * a_1';
 
 
 
