@@ -81,11 +81,22 @@ regularSum = sum((Theta1(:, 2:end).**2)(:)) + sum((Theta2(:, 2:end).**2)(:));
 J = costSum/m + (lambda*regularSum)/(2*m);
 
 
-for t = 1:m
-  a1 = X(t,:)';
-  z1 = Theta1 * a1;
-  a2 = sigmoid(z1);
+
+
+a_1 = X(1,:)';
+z_2 = Theta1 * a_1;
+a_2 = [1; sigmoid(z_2)(:)];
+z_3 = Theta2 * a_2;
+a_3 = sigmoid(z_3);
+
+d_3 = zeros(num_labels, 1);
+for k = 1:num_labels
+  y_k = y(1) == k;
+  d_3(k) = a_3(k) - y_k;
 endfor
+
+tre = Theta2' * d_3;
+d_2 = tre .* z_2;
 
 
 
