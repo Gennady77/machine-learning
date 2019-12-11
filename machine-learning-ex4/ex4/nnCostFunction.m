@@ -83,21 +83,25 @@ J = costSum/m + (lambda*regularSum)/(2*m);
 
 
 
+D_2 = zeros(m, hidden_layer_size);
+D_1 = zeros(m, input_layer_size);
+
+
 a_1 = X';
 z_2 = Theta1 * a_1;
 a_2 = [ones(1,size(z_2, 2)); sigmoid(z_2)];
 z_3 = Theta2 * a_2;
 a_3 = sigmoid(z_3);
 
-d_3 = zeros(num_labels, 1);
-for k = 1:num_labels
-  y_k = y(1) == k;
-  d_3(k) = a_3(k) - y_k;
-endfor
+y_m = eye(num_labels)(y,:);
 
-d_2 = (Theta2(:, 2:end))' * d_3 .* sigmoidGradient(z_2);
+d_3 = a_3 - y_m';
 
-delta_1 = d_2 * a_1';
+d_2 = (Theta2(:,2:end))' * d_3 .* sigmoidGradient(z_2);
+
+D_2 = D_2 + d_3 * (a_2(2:end, :))';
+D_1 = D_1 + d_2 * (a_1(2:end, :))';
+
 
 
 
