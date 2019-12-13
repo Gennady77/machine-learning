@@ -83,29 +83,31 @@ J = costSum/m + (lambda*regularSum)/(2*m);
 
 
 
-D_2 = zeros(num_labels, hidden_layer_size);
-D_1 = zeros(hidden_layer_size, input_layer_size);
-y_e = eye(num_labels);
+D_2 = zeros(num_labels, hidden_layer_size + 1);
+D_1 = zeros(hidden_layer_size, input_layer_size + 1);
+y_e = eye(num_labels)(:, y);
 y_m = y_e(y,:);
 
-for i = 1:m
-  a_1 = X(i, :)';
-  z_2 = Theta1 * a_1;
-  a_2 = [1; sigmoid(z_2)];
-  z_3 = Theta2 * a_2;
-  a_3 = sigmoid(z_3);
+a_1 = X';
+z_2 = Theta1 * a_1;
+a_2 = [ones(1, size(z_2, 2)); sigmoid(z_2)];
+z_3 = Theta2 * a_2;
+a_3 = sigmoid(z_3);
 
-  d_3 = a_3 - y_e(y(i),:)';
-  d_2 = (Theta2(:,2:end))' * d_3 .* sigmoidGradient(z_2);
-
-  D_2 = D_2 + d_3 * (a_2(2:end, :))';
-  D_1 = D_1 + d_2 * (a_1(2:end, :))';
-endfor
+d_3 = a_3 - y_e;
+d_2 = (Theta2(:,2:end))' * d_3 .* sigmoidGradient(z_2);
 
 
+thet = [zeros(size(Theta2, 1), 1), Theta2(:, 2:end)];
+
+D_2 = D_2 + d_3 * a_2';
+D_1 = D_1 + d_2 * a_1';
 
 
 
+
+Theta1_grad = D_1./m;
+Theta2_grad = D_2./m;
 
 
 
