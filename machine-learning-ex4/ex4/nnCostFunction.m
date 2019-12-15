@@ -104,10 +104,8 @@ D_2 = D_2 + d_3 * a_2';
 D_1 = D_1 + d_2 * a_1';
 
 
-
-
-Theta1_grad = D_1./m;
-Theta2_grad = D_2./m;
+Theta1_grad = D_1./m + (lambda/m)*[zeros(size(Theta1, 1), 1), Theta1(:, 2:end)];
+Theta2_grad = D_2./m + (lambda/m)*[zeros(size(Theta2, 1), 1), Theta2(:, 2:end)];
 
 
 
