@@ -24,7 +24,7 @@ J = sum((X * theta - y).**2)/(2*m) + (lambda*(sum(theta(2:end, :).**2)))/(2*m);
 regularTheta = [0;theta(2:end, :)];
 
 for j = 1:size(theta)
-  grad(j, 1) = sum((X * theta - y) .* X(:,j))/m + (lambda * regularTheta(j, 1)) / m;
+  grad(j) = sum((X * theta - y) .* X(:,j))/m + (lambda .* regularTheta(j)) / m;
 endfor
 
 
