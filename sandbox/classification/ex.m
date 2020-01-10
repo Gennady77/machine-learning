@@ -12,4 +12,10 @@ theta = zeros(2,1);
 [theta] = trainLinearReg(X, y, 0);
 
 
+hold on;
 
+plot(x, X*theta, '-', 'LineWidth', 2)
+
+hold off;
+
+[theta] = trainLogisticReg(X, y, 0)
