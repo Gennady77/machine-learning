@@ -1,26 +1,31 @@
 clear ; close all; clc;
 
-data = csvread('diabetes.csv');
-data = data(2:length(data),:);
+load "data.mat";
 
-X = data(:, 1:8);
-y = data(:, 9);
+ratio = 0.2;
+m = length(data);
+test_count = round(m * ratio);
+data_test = data(1:test_count, :);
+X_test = data_test(:, 1:8);
+y_test = data_test(:, 9);
 
-negative_count = sum(data(:, 9)==0);
-positive_count = sum(data(:, 9)==1);
-target_ratio = positive_count/negative_count;
+X = X_test;
+y = y_test;
 
-[X_train, y_train, X_test, y_test] = splitTestData(X, y, 0.2);
+p = zeros(5, 1);
 
-[x_train, mu, sigma] = featureNormalize(x_train);
-X_train = [ones(size(x_train,1), 1), x_train];
+for i = 1:5
+[X_train, y_train, X_val, y_val] = splitTestData(X, y, 0.2, i);
 
+[X_train, mu, sigma] = featureNormalize(X_train);
 
 theta = trainLogicReg(X_train, y_train, 0);
 
-[x_test, mu, sigma] = featureNormalize(x_test);
-X_test = [ones(size(x_test,1), 1), x_test];
+[X_val, mu, sigma] = featureNormalize(X_val);
 
-p = predict(theta, X_test);
+pr = predict(theta, X_val);
 
-mean(double(p == y_test))
+p(i) = mean(double(pr == y_val));
+endfor
+
+mean(p)

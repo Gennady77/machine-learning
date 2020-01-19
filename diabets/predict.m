@@ -1,5 +1,7 @@
 function p = predict(theta, X)
 
+X = [ones(size(X,1), 1), X];
+
 m = size(X, 1); % Number of training examples
 
 % You need to return the following variables correctly
@@ -13,6 +15,5 @@ for i = 1:m
   else
     p(i) = 0;
 endif
-
 
 end

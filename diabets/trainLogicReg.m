@@ -1,5 +1,7 @@
 function [theta] = trainLogicReg(X, y, lambda)
 
+X = [ones(size(X,1), 1), X];
+
 % Initialize Theta
 initial_theta = zeros(size(X, 2), 1); 
 
