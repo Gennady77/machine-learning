@@ -1,4 +1,4 @@
-function [prediction] = crossValidationTrain(X, y, poly)
+function [prediction] = crossValidationTrain(X, y, poly, lambda)
   ratio = 0.2;
   p = zeros(5, 1);
   
@@ -8,7 +8,7 @@ function [prediction] = crossValidationTrain(X, y, poly)
     X_train = polyFeatures(X_train,poly);
     [X_train, mu, sigma] = featureNormalize(X_train);
 
-    theta = trainLogicReg(X_train, y_train, 0);
+    theta = trainLogicReg(X_train, y_train, lambda);
 
     X_val = polyFeatures(X_val,poly);
     X_val = bsxfun(@minus, X_val, mu);
