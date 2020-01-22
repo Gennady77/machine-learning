@@ -27,7 +27,9 @@ function [f,g] = softmax_regression_vec(theta, X,y)
   %        Before returning g, make sure you form it back into a vector with g=g(:);
   %
   
-  
+  for i = 1:n
+    
+  endfor
   
   
   g=g(:); % make gradient a vector for minFunc
