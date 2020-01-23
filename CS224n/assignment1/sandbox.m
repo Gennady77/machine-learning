@@ -1,0 +1,1 @@
+str_m = strfind ("<START> All that glitters isn't gold <END>\n<START> All's well that ends well <END>\n", "All");
