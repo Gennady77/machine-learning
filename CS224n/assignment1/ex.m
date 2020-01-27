@@ -1,8 +1,8 @@
 clear ; close all; clc;
 
-START_TOKEN = '<START>';
-END_TOKEN = '<END>';
+global START_TOKEN = '<START>';
+global END_TOKEN = '<END>';
 
-test_corpus = ["<START> All that glitters isn't gold <END>\n", "<START> All's well that ends well <END>\n"];
+test_corpus = ["<START> All that glitters isn't gold <END>"; "<START> All's well that ends well too <END>"];
 
-[M_test, word2Ind_test] = computeCoOccurrenceMatrix(test_corpus, 1);
+[M_test, word2Ind_test] = computeCoOccurrenceMatrix(cellstr(test_corpus), 1);
